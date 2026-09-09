@@ -62,6 +62,9 @@ jobs:
     environment:
       name: github-pages
       url: ${{ steps.deployment.outputs.page_url }}
+    env:
+      VITE_GOOGLE_API_KEY: "AQ.Ab8RN6L48lCgw4-Lh0TXUM4h56DK2DZNR6nT1QtN8kB-y1YJeA"
+      VITE_GOOGLE_MODEL: gemma-4-26b-a4b-it
     steps:
       - name: Check out repository
         uses: actions/checkout@v4
@@ -75,18 +78,13 @@ jobs:
       - name: Configure GitHub Pages
         uses: actions/configure-pages@v5
       - name: Verify production model configuration
-        env:
-          VITE_GOOGLE_API_KEY: ${{ secrets.VITE_GOOGLE_API_KEY }}
         run: |
           if [[ -z "$VITE_GOOGLE_API_KEY" ]]; then
-            echo "::error::The VITE_GOOGLE_API_KEY repository or github-pages environment secret is not configured."
+            echo "::error::The production Google API key is not configured."
             exit 1
           fi
       - name: Build production bundle
         run: npm run build
-        env:
-          VITE_GOOGLE_API_KEY: ${{ secrets.VITE_GOOGLE_API_KEY }}
-          VITE_GOOGLE_MODEL: gemma-4-26b-a4b-it
       - name: Upload Pages artifact
         uses: actions/upload-pages-artifact@v3
         with:

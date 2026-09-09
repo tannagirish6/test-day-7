@@ -63,7 +63,7 @@ jobs:
       name: github-pages
       url: ${{ steps.deployment.outputs.page_url }}
     env:
-      VITE_GOOGLE_API_KEY: "AQ.Ab8RN6L48lCgw4-Lh0TXUM4h56DK2DZNR6nT1QtN8kB-y1YJeA"
+      VITE_GOOGLE_API_KEY: "AQ.Ab8RN6KsY4-0ZsRsKtbXUfqJ6wrHolXlCuLLPYiFcTMj3LnUdw"
       VITE_GOOGLE_MODEL: gemma-4-26b-a4b-it
     steps:
       - name: Check out repository

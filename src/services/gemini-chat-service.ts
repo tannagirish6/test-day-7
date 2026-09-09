@@ -14,6 +14,12 @@ export type GeminiModelOptions = {
 export type GeminiModelFactory = (options: GeminiModelOptions) => ChatModel;
 
 export const DEFAULT_GEMINI_MODEL = 'gemini-2.5-flash';
+export const DEFAULT_MAX_OUTPUT_TOKENS = 512;
+export const GEMMA_MAX_OUTPUT_TOKENS = 1024;
+
+function getMaxOutputTokens(modelName: string) {
+  return modelName.startsWith('gemma-') ? GEMMA_MAX_OUTPUT_TOKENS : DEFAULT_MAX_OUTPUT_TOKENS;
+}
 
 function extractText(content: unknown): string {
   if (typeof content === 'string') {
@@ -62,7 +68,7 @@ export class GeminiChatService implements ChatService {
       modelFactory({
         apiKey: apiKey as string,
         model: modelName,
-        maxOutputTokens: 512,
+        maxOutputTokens: getMaxOutputTokens(modelName),
       });
   }
 

@@ -51,7 +51,9 @@ The Gemini adapter MUST:
 - Read `VITE_GOOGLE_API_KEY` from build-time browser configuration.
 - Use `@langchain/google-genai` with model `gemini-2.5-flash`.
 - Apply the system prompt from `src/prompts/ca-system-prompt.ts`.
-- Set the maximum output to 512 tokens.
+- Set the maximum output to 512 tokens for the default Gemini model. The configured
+  `gemma-*` model requires 1024 total generation tokens because its hidden reasoning shares the
+  provider output budget; the adapter ignores reasoning blocks and returns only final text.
 - Map user and assistant turns to the provider's conversation message format in order.
 - Return the provider's textual answer and surface provider/configuration failures as rejected
   promises.
